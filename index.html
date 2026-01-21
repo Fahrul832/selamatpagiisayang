@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fani, Bangun Dong! 😴</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Comic Sans MS", system-ui, sans-serif; /* Sedikit playful! */
+      }
+
+      body {
+        background: linear-gradient(135deg, #e0f7fa, #f8bbd0);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: #222;
+      }
+
+      .container {
+        text-align: center;
+        max-width: 600px;
+        background: white;
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 100px;
+        height: 100px;
+        background: #ff9aa2;
+        border-radius: 50%;
+        opacity: 0.2;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: #e91e63;
+      }
+
+      .message {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        margin: 25px 0;
+        min-height: 60px;
+      }
+
+      .btn {
+        background: #4fc3f7;
+        color: white;
+        border: none;
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        margin: 12px;
+        transition: all 0.25s ease;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(79, 195, 247, 0.4);
+      }
+
+      .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(79, 195, 247, 0.6);
+      }
+
+      .btn.sleep {
+        background: #b39ddb;
+      }
+
+      .btn.sleep:hover {
+        background: #9575cd;
+      }
+
+      .emoji {
+        animation: bounce 1.5s infinite alternate;
+        display: inline-block;
+      }
+
+      @keyframes bounce {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-10px);
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .alarm {
+        font-size: 1.8rem;
+        margin: 15px 0;
+        color: #ff5722;
+        animation: shake 2s infinite;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-5px);
+        }
+        40%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hai, Fani Anggi Lestari! ☀️</h1>
+      <p class="message" id="msg">
+        Kamu udah bangun... atau masih pura-pura mati? 😏
+      </p>
+
+      <div class="alarm">⏰ BIP! BIP! BIP!</div>
+
+      <button class="btn" id="bangunBtn">Bangun! Aku rindu 💖</button>
+      <button class="btn sleep" id="tidurBtn">Tidur 5 menit lagi... 😴</button>
+    </div>
+
+    <script>
+      const msgEl = document.getElementById("msg");
+      const bangunBtn = document.getElementById("bangunBtn");
+      const tidurBtn = document.getElementById("tidurBtn");
+
+      // Pesan lucu saat milih "tidur lagi"
+      const sleepyMessages = [
+        "Waduh, 5 menit katanya... jangan sampe jam makan siang ya!",
+        "Oke, tidur lagi... tapi aku tetap nungguin, lho! ❤️",
+        "Kalau kamu tidur, aku bayangin kamu lagi mimpiin aku... 😏",
+        "Jangan lama-lama! Nanti aku kirim drone buat gangguin! 🚁",
+        "5 menit? Katanya kemarin juga gitu... terus sampe sore! 😅",
+        "Oke deh... TAPI! Aku bakal kirim pesan tiap 10 detik mulai sekarang! 💥",
+      ];
+
+      let sleepyCount = 0;
+
+      bangunBtn.addEventListener("click", () => {
+        msgEl.innerHTML =
+          "YESSS! Akhirnya bangun juga! 🎉<br>Kamu itu obat mood terbaik pagi ini, Fani. 😘";
+        bangunBtn.textContent = "❤️ Makasih Udah Bangun!";
+        bangunBtn.disabled = true;
+        tidurBtn.classList.add("hidden");
+        document.querySelector(".alarm").classList.add("hidden");
+      });
+
+      tidurBtn.addEventListener("click", () => {
+        if (sleepyCount < sleepyMessages.length) {
+          msgEl.textContent = sleepyMessages[sleepyCount];
+          sleepyCount++;
+
+          // Efek lucu: tombol "tidur" makin kecil & susah diklik
+          const scale = Math.max(0.6, 1 - sleepyCount * 0.08);
+          tidurBtn.style.transform = `scale(${scale})`;
+          tidurBtn.style.position = "relative";
+          tidurBtn.style.left = Math.random() * 100 - 50 + "px";
+          tidurBtn.style.top = Math.random() * 30 - 15 + "px";
+        } else {
+          // Final twist!
+          msgEl.innerHTML =
+            "DASAR NGGAK BISA DIAJAK KERJASAMA! 😤<br>Tapi... aku tetap sayang. Bahkan pas kamu males-malesan. ❤️";
+          tidurBtn.textContent = "😭 Maafin aku, aku bangun sekarang!";
+          tidurBtn.onclick = null;
+          tidurBtn.addEventListener("click", () => {
+            msgEl.innerHTML =
+              "Janji? Kalau bohong, besok aku kirim alarm versi dangdut remix! 🎶💃";
+            tidurBtn.textContent = "Iya, janji! 😇";
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
