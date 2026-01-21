@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mood Pagi Fani 💕</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", system-ui, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ffe1ef, #fff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        background: white;
+        width: 90%;
+        max-width: 420px;
+        padding: 30px;
+        border-radius: 22px;
+        text-align: center;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        animation: fadeIn 1s ease;
+      }
+
+      h1 {
+        margin-top: 0;
+        color: #ff4d88;
+      }
+
+      p {
+        color: #555;
+        min-height: 70px;
+        transition: all 0.4s ease;
+      }
+
+      .buttons {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 12px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        background: #fff0f6;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      button:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 15px rgba(255, 77, 136, 0.25);
+      }
+
+      .emoji {
+        font-size: 32px;
+        margin-top: 15px;
+        animation: pop 1.5s infinite;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pop {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Selamat Pagi ☀️</h1>
+      <p id="text">
+        Halo Fani Anggi Lestari 💕<br />
+        Sebelum mulai hari ini,<br />
+        aku mau cek dulu mood pagi kamu 😌
+      </p>
+
+      <div class="buttons">
+        <button onclick="checkMood('ngantuk')">😴 Masih ngantuk</button>
+        <button onclick="checkMood('biasa')">😐 Biasa aja</button>
+        <button onclick="checkMood('semangat')">😊 Lumayan semangat</button>
+        <button onclick="checkMood('bahagia')">😍 Bahagia banget</button>
+      </div>
+
+      <div class="emoji" id="emoji">💗</div>
+    </div>
+
+    <script>
+      function checkMood(mood) {
+        const text = document.getElementById("text");
+        const emoji = document.getElementById("emoji");
+
+        text.style.opacity = 0;
+
+        setTimeout(() => {
+          if (mood === "ngantuk") {
+            text.innerHTML =
+              "Hehehe wajar 😴<br>" +
+              "Soalnya kamu terlalu manis buat bangun cepet 😌<br>" +
+              "Pelan-pelan aja ya pagi ini 🤍";
+            emoji.textContent = "🥱💖";
+          }
+
+          if (mood === "biasa") {
+            text.innerHTML =
+              "Okeee 😐<br>" +
+              "Biar aku bantu dikit ya…<br>" +
+              "Nih aku kirim senyum virtual khusus buat kamu 😊💕";
+            emoji.textContent = "😊💌";
+          }
+
+          if (mood === "semangat") {
+            text.innerHTML =
+              "YESSS 😊🔥<br>" +
+              "Kalau kamu semangat,<br>" +
+              "hari ini pasti jadi hari yang baik ✨<br>" +
+              "Aku bangga sama kamu 🤍";
+            emoji.textContent = "🌸💪";
+          }
+
+          if (mood === "bahagia") {
+            text.innerHTML =
+              "😍😍😍<br>" +
+              "FIX.<br>" +
+              "Hari ini dunia aman karena Fani bahagia 💕<br>" +
+              "Tolong jangan lupa senyum terus ya 😌";
+            emoji.textContent = "💖🌈";
+          }
+
+          text.style.opacity = 1;
+        }, 300);
+      }
+    </script>
+  </body>
+</html>
